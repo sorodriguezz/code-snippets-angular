@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { FormatCodePipe } from 'src/app/pipes/format-code.pipe';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    FormatCodePipe
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
+    ClipboardModule,
   ],
 })
 export class HomeModule { }

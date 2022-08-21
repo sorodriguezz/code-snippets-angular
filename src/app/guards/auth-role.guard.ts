@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AuthService } from '../services/auth/auth.service';
 
 @Injectable({
@@ -25,13 +26,15 @@ export class AuthRoleGuard implements CanActivate {
       return this.authService.authTokenVerify()
         .pipe(
           tap((esPermitido: any) => {
-            if(!esPermitido.permitido) {
+            if(esPermitido) {
               return true;
-            }else {
-              sessionStorage.clear();
-              this.router.navigate(['/login']);
-              return false;
             }
+            sessionStorage.removeItem(environment.TOKEN);
+            sessionStorage.removeItem(environment.USER);
+            sessionStorage.removeItem(environment.EMAIL);
+            sessionStorage.removeItem(environment.ROLES);
+            this.router.navigate(['/login']);
+            return false;
           })
         );
   

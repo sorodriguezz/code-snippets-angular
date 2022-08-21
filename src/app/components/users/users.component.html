@@ -1,1 +1,67 @@
-<p>users works!</p>
+<div class="container mt-5 ">
+  <table
+    datatable
+    [dtOptions]="dtOptions"
+    [dtTrigger]="dtTrigger"
+    class="table table-striped table-bordered"
+  >
+    <caption></caption>
+    <thead>
+      <tr>
+        <th id="id">ID</th>
+        <th id="username">Username</th>
+        <th id="email">Email</th>
+        <th id="roles">Roles</th>
+        <th id="fecha-creacion">Fecha de creación</th>
+        <th id="estado">Estado</th>
+        <th id="acciones">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user._id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+            <span *ngFor="let rol of user.roles" class="badge text-bg-secondary m-1">{{ rol.name }}</span>
+        </td>
+        <td>{{ user.createdAt | date: 'fullDate'}}</td>
+        <td>
+          <div class="form-check form-switch d-flex justify-content-center">
+            <input *ngIf="user.username != 'admin'" class="form-check-input" type="checkbox" role="switch" (change)="changeStatusUserService(user.slug)" [checked]="user.status == 'active'">
+          </div>
+        </td>
+        <td>
+        <div class="d-flex justify-content-center">
+          <button *ngIf="user.username != 'admin'" type="button" class="btn btn-warning" (click)="open(content, user)">
+            <em class="fa-regular fa-pen-to-square"></em>
+          </button>
+        </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+     <h4 class="modal-title" id="modal-basic-title">{{userEdit.username | uppercase}}</h4>
+   </div>
+   <div class="modal-body">
+
+    <form [formGroup]="formularioEdit">
+      <div class="mb-3">
+        <label for="usuario" class="form-label">Usuario</label>
+        <input type="text" formControlName="username" class="form-control" id="usuario">
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo</label>
+        <input type="email" formControlName="email" class="form-control" id="email">
+      </div>
+    </form>
+
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-outline-danger" (click)="closeModal()">Cerrar</button>
+   </div>
+ </ng-template>

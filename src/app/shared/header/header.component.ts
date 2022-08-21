@@ -20,6 +20,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  isAdmin() {
+    return sessionStorage.getItem("roles") === "admin" ? true : false;
+  }
+
   logout() {
     sessionStorage.removeItem('token');
     this.router.navigate(['/login']);

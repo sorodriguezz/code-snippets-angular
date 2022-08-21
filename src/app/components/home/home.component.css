@@ -1,0 +1,7 @@
+textarea {
+    resize: none;
+    overflow-y: auto;
+    overflow-x: auto;
+    min-height: 50px;
+    max-height: 500px;
+}

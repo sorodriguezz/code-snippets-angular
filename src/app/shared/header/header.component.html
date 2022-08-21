@@ -4,7 +4,7 @@
   style="background-color: #e3f2fd"
 >
   <div class="container-fluid">
-    <a class="navbar-brand" [routerLink]="['/home']">Bienvenido {{loggedUser | uppercase}} a Code Snippets</a>
+    <a class="navbar-brand" [routerLink]="['/home']">Bienvenido <strong>{{loggedUser | uppercase}}</strong> a Code Snippets</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -18,12 +18,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
+        <li *ngIf="isAdmin()" class="nav-item">
           <a class="nav-link" [routerLinkActive]="'active'" routerLink="/users"
             >Users</a
           >
         </li>
-        <li class="nav-item">
+        <li *ngIf="isAdmin()" class="nav-item">
           <a
             class="nav-link"
             [routerLinkActive]="'active'"
@@ -32,7 +32,7 @@
           >
         </li>
       </ul>
-      <div class="d-flex">
+      <!-- <div class="d-flex">
         <input
           class="form-control me-2"
           type="search"
@@ -40,7 +40,7 @@
           aria-label="Search"
         />
         <button class="btn btn-outline-primary">Buscar</button>
-      </div>
+      </div> -->
       <div class="m-1 d-flex">
         <button class="btn btn-outline-danger" (click)="logout()">
           Cerrar sesión

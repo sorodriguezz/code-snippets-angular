@@ -14,8 +14,18 @@ const routes: Routes = [
     loadChildren: () =>
       import('./components/home/home.module').then((m) => m.HomeModule),
   },
-  { path: 'users', loadChildren: () => import('./components/users/users.module').then(m => m.UsersModule) },
-  { path: 'roles', loadChildren: () => import('./components/roles/roles.module').then(m => m.RolesModule) },
+  {
+    path: 'users',
+    canActivate: [AuthRoleGuard],
+    loadChildren: () =>
+      import('./components/users/users.module').then((m) => m.UsersModule),
+  },
+  {
+    path: 'roles',
+    canActivate: [AuthRoleGuard],
+    loadChildren: () =>
+      import('./components/roles/roles.module').then((m) => m.RolesModule),
+  },
   {
     path: '**',
     redirectTo: 'login',

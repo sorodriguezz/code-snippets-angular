@@ -1,11 +1,22 @@
 <div class="m-4">
   <div class="row row-cols-1 row-cols-md-6 g-4">
     <div *ngFor="let snippet of snippets" class="col-sm-6">
-      <div class="card">
+      <div class="card border-info">
         <div class="card-body">
-          <h5 class="card-title">{{ snippet.title }}</h5>
+          <div class="d-flex justify-content-center">
+            <h5 class="card-title">{{ snippet.title | uppercase }}</h5>
+          </div>
           <p class="card-text">{{ snippet.description }}</p>
-          <div class="d-grid gap-2">
+
+          <div>
+            <strong>Tags:</strong> <span *ngFor="let tag of snippet.tags" class="badge text-bg-secondary m-1">{{tag.name}}</span>
+          </div>
+
+          <div>
+            <strong>Lenguaje:</strong> <span class="badge text-bg-success m-1">{{snippet.language.name}}</span> 
+          </div>
+
+          <div class="d-grid gap-2 mt-2">
             <button
               class="btn btn-outline-primary"
               type="button"
@@ -27,9 +38,28 @@
     <h4 class="modal-title" id="modal-basic-title">{{snippet.title | titlecase}}</h4>
   </div>
   <div class="modal-body">
-
-    
-
+    <div>
+      <strong>
+        <label for="">Tags:</label>
+      </strong>
+      <div>
+        <span *ngFor="let tag of snippet.tags" class="badge text-bg-success m-1">{{tag.name}}</span>
+      </div>
+    </div>
+    <div class="mt-2">
+      <strong>
+        <label for="">Descripción:</label>
+      </strong>
+      <div>
+        <p>{{snippet.description}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <textarea #code id="" cols="30" rows="500">{{snippet.code}}</textarea>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+      <button class="btn btn-primary" [ngxClipboard]="code">Copiar contenido</button>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-danger" (click)="closeModal()">Cerrar</button>
