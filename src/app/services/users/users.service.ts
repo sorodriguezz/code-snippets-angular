@@ -23,4 +23,8 @@ export class UsersService {
   changeUserStatus(slug: string): Observable<any> {
     return this.http.patch(`${environment.BASE_URL}/user/${slug}`, {});
   }
+
+  createUser(userData: any): Observable<any> {
+    return this.http.post(`${environment.BASE_URL}/user`, userData ,{});
+  }
 }
