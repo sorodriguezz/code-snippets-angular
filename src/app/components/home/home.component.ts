@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SnippetsService } from 'src/app/services/snippets/snippets.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -34,6 +35,24 @@ export class HomeComponent implements OnInit{
         keyboard: false
       }
     );
+  }
+
+  copy(){
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title: '¡Copiado en el portapapeles!'
+    })
   }
 
   closeModal() {
