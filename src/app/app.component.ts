@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'code-snippets-angular';
+  title = 'Code Snippets';
+
+  existToken() {
+    if(sessionStorage.getItem("token")){
+      return true;
+    }
+    return false;
+  }
+
 }

@@ -1,0 +1,37 @@
+<div class="m-4">
+  <div class="row row-cols-1 row-cols-md-6 g-4">
+    <div *ngFor="let snippet of snippets" class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ snippet.title }}</h5>
+          <p class="card-text">{{ snippet.description }}</p>
+          <div class="d-grid gap-2">
+            <button
+              class="btn btn-outline-primary"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              (click)="open(content, snippet)"
+            >
+              Ir
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+ <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{snippet.title | titlecase}}</h4>
+  </div>
+  <div class="modal-body">
+
+    
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="closeModal()">Cerrar</button>
+  </div>
+</ng-template>
