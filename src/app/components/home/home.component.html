@@ -1,22 +1,22 @@
-<div class="container mt-5">
+<div class="m-4 d-grid gap-0">
   <div class="d-flex flex-row-reverse">
-    <div class="m-1">
+    <div class="p-1">
       <button
         class="btn btn-info"
         (click)="actualizaSnippets()"
         [disabled]="countdownValue == 0"
       >
         Actualizar
+        <span class="badge text-bg-secondary m-1">
+          {{
+            countdownValue > 0
+              ? countdownValue + " s"
+              : "Actualizando"
+          }}</span
+        >
       </button>
-      <span class="badge text-bg-secondary m-1">
-        {{
-          countdownValue > 0
-            ? countdownValue + " s"
-            : "Actualizando"
-        }}</span
-      >
     </div>
-    <div class="m-1">
+    <div class="p-1">
       <button
         type="button"
         class="btn btn-primary mb-4"
@@ -26,8 +26,8 @@
         Ver snippets inactivos
       </button>
     </div>
-    <div class="m-1">
-      <button type="button" class="btn btn-success mb-4">Crear snippet</button>
+    <div class="p-1">
+      <button type="button" class="btn btn-success">Crear snippet</button>
     </div>
   </div>
 </div>
