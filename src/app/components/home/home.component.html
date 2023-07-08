@@ -1,9 +1,20 @@
 <div class="container mt-5">
   <div class="d-flex flex-row-reverse">
     <div class="m-1">
-      <button class="btn btn-info" (click)="getActiveSnippetsService()" [disabled]="countdownValue > 0">
-        {{ countdownValue > 0 ? 'Actualiza en ' + countdownValue + ' s' : 'Actualizado' }}
+      <button
+        class="btn btn-info"
+        (click)="actualizaSnippets()"
+        [disabled]="countdownValue == 0"
+      >
+        Actualizar
       </button>
+      <span class="badge text-bg-secondary m-1">
+        {{
+          countdownValue > 0
+            ? countdownValue + " s"
+            : "Actualizando"
+        }}</span
+      >
     </div>
     <div class="m-1">
       <button
