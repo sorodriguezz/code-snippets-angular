@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
+import { Subject, interval, repeat, take, timer } from 'rxjs';
 import { SnippetsService } from 'src/app/services/snippets/snippets.service';
 import Swal from 'sweetalert2';
 
@@ -9,10 +9,13 @@ import Swal from 'sweetalert2';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public snippets: any;
   public snippet: any;
   public snippetsInactives: any;
+
+  countdownValue: number = 60;
+  dataRefreshSubscription: any;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
@@ -25,6 +28,20 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getActiveSnippetsService();
     this.opcionesDataTable();
+
+    this.dataRefreshSubscription = timer(0, 1000)
+    .pipe(
+      take(this.countdownValue + 1),
+      repeat()
+    )
+    .subscribe(() => {
+      this.countdownValue--;
+      if (this.countdownValue === 0) {
+        this.countdownValue = 10; // Reinicia la cuenta regresiva
+        this.getActiveSnippetsService(); // Actualiza los datos de la tabla
+      }
+    });
+
   }
 
   private opcionesDataTable(): void {
@@ -121,5 +138,11 @@ export class HomeComponent implements OnInit {
         this.dtTrigger.next(this.snippetsInactives);
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.dataRefreshSubscription) {
+      this.dataRefreshSubscription.unsubscribe();
+    }
   }
 }
