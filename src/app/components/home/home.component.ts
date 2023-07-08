@@ -115,6 +115,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       complete: () => {
         this.getInactiveSnippetsService();
         this.getActiveSnippetsService();
+        this.closeModal();
         Swal.fire({
           icon: 'success',
           title: 'Éxito',
