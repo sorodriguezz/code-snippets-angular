@@ -1,13 +1,13 @@
-<div class="m-4 d-grid gap-0">
+<div class="m-4 d-grid gap-3">
   <div class="d-flex flex-row-reverse">
     <div class="p-1">
       <button
-        class="btn btn-info"
+        class="btn btn-dark"
         (click)="actualizaSnippets()"
         [disabled]="countdownValue == 0"
       >
         Actualizar
-        <span class="badge text-bg-secondary m-1">
+        <span class="badge text-bg-light">
           {{
             countdownValue > 0
               ? countdownValue + " s"
