@@ -9,10 +9,9 @@ import { Properties } from 'src/app/properties/properties';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit, OnDestroy {
-
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
   users: any;
@@ -24,33 +23,23 @@ export class UsersComponent implements OnInit, OnDestroy {
   constructor(
     private usersService: UsersService,
     private modalService: NgbModal,
-    private _fb: FormBuilder,
+    private _fb: FormBuilder
   ) {
     this.formularioEdit = this._fb.group({
-      username: ["",
-        [ 
-          Validators.required,
-        ]
-      ],
+      username: ['', [Validators.required]],
       email: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern(Properties.VALIDATION_EMAIL)
-        ]
+        '',
+        [Validators.required, Validators.pattern(Properties.VALIDATION_EMAIL)],
       ],
     });
 
     this.formularioCreate = this._fb.group({
-      username: ["", Validators.required],
+      username: ['', Validators.required],
       email: [
-        "",
-        [
-          Validators.required,
-          Validators.pattern(Properties.VALIDATION_EMAIL)
-        ]
+        '',
+        [Validators.required, Validators.pattern(Properties.VALIDATION_EMAIL)],
       ],
-      password: ["", Validators.required]
+      password: ['', Validators.required],
     });
   }
 
@@ -70,7 +59,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       destroy: true,
       searching: true,
       responsive: true,
-      retrieve: true
+      retrieve: true,
     };
   }
 
@@ -78,48 +67,42 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userEdit = user;
     let controls = this.formularioEdit.controls;
 
-    controls["username"].setValue(this.userEdit.username);
-    controls["email"].setValue(this.userEdit.email);
+    controls['username'].setValue(this.userEdit.username);
+    controls['email'].setValue(this.userEdit.email);
 
-    this.modalService.open(
-      content, 
-      { 
-        size: 'xl',
-        centered: true,
-        backdrop: 'static',
-        keyboard: false
-      }
-    );
+    this.modalService.open(content, {
+      size: 'xl',
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+    });
   }
 
   openCreate(content: any) {
-    this.modalService.open(
-      content, 
-      { 
-        size: 'xl',
-        centered: true,
-        backdrop: 'static',
-        keyboard: false
-      }
-    );
+    this.modalService.open(content, {
+      size: 'xl',
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+    });
   }
 
   changeStatusUserService(userSlug: string) {
     this.usersService.changeUserStatus(userSlug).subscribe({
-      error: (error)=> {
+      error: (error) => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
           text: error.message,
         });
-      }, 
+      },
       complete: () => {
         Swal.fire({
           icon: 'success',
           title: 'Éxito',
           text: 'Estado cambiado correctamente',
         });
-      }
+      },
     });
   }
 
@@ -127,10 +110,10 @@ export class UsersComponent implements OnInit, OnDestroy {
     let controls = this.formularioCreate.controls;
 
     let userData = {
-      username: controls["username"].value,
-      email: controls["email"].value,
-      password: controls["password"].value
-    }
+      username: controls['username'].value,
+      email: controls['email'].value,
+      password: controls['password'].value,
+    };
 
     this.usersService.createUser(userData).subscribe({
       next: (resp: any) => {
@@ -140,18 +123,18 @@ export class UsersComponent implements OnInit, OnDestroy {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Usuario no creado'
-        })
+          text: 'Usuario no creado',
+        });
       },
       complete: () => {
         this.closeModal();
         Swal.fire({
           icon: 'success',
           title: 'Éxito',
-          text: 'Usuario creado correctamente'
+          text: 'Usuario creado correctamente',
         });
         this.getUsers();
-      }
+      },
     });
   }
 
@@ -171,5 +154,4 @@ export class UsersComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
-
 }
